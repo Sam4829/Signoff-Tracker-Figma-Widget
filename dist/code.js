@@ -786,9 +786,32 @@
   };
 
   // src/components/Footer.tsx
-  var Footer = ({ mode, onAddRole }) => {
+  var Footer = ({
+    mode,
+    rowCount,
+    maxRows,
+    onAddRole
+  }) => {
     const modeLabel = mode === "binary" ? "Binary" : "Multi-state";
-    return /* @__PURE__ */ figma.widget.h(AutoLayout, { direction: "vertical", width: "fill-parent", fill: COLORS.white }, /* @__PURE__ */ figma.widget.h(AutoLayout, { width: "fill-parent", height: 1, fill: COLORS.hairline }), /* @__PURE__ */ figma.widget.h(
+    const isCapped = rowCount >= maxRows;
+    return /* @__PURE__ */ figma.widget.h(AutoLayout, { direction: "vertical", width: "fill-parent", fill: COLORS.white }, /* @__PURE__ */ figma.widget.h(AutoLayout, { width: "fill-parent", height: 1, fill: COLORS.hairline }), isCapped && /* @__PURE__ */ figma.widget.h(
+      AutoLayout,
+      {
+        width: "fill-parent",
+        fill: COLORS.warningBg,
+        stroke: COLORS.warningBorder,
+        strokeWidth: 1,
+        padding: { top: 4, bottom: 4, left: 14, right: 14 }
+      },
+      /* @__PURE__ */ figma.widget.h(
+        Text,
+        {
+          fontSize: 10,
+          fill: COLORS.warningText
+        },
+        `Max ${maxRows} roles reached. Remove a role to add more.`
+      )
+    ), /* @__PURE__ */ figma.widget.h(
       AutoLayout,
       {
         direction: "horizontal",
@@ -806,18 +829,19 @@
           spacing: 4,
           padding: { top: 4, bottom: 4, left: 6, right: 6 },
           cornerRadius: 4,
-          hoverStyle: {
+          fill: isCapped ? COLORS.subtleBg : void 0,
+          hoverStyle: isCapped ? void 0 : {
             fill: COLORS.figmaBlueLight
           },
           onClick: onAddRole
         },
-        /* @__PURE__ */ figma.widget.h(PlusIcon, { size: 12, color: COLORS.figmaBlue }),
+        /* @__PURE__ */ figma.widget.h(PlusIcon, { size: 12, color: isCapped ? COLORS.textMuted : COLORS.figmaBlue }),
         /* @__PURE__ */ figma.widget.h(
           Text,
           {
             fontSize: 12,
             fontWeight: 600,
-            fill: COLORS.figmaBlue
+            fill: isCapped ? COLORS.textMuted : COLORS.figmaBlue
           },
           "Add role"
         )
@@ -845,6 +869,7 @@
   };
 
   // src/code.tsx
+  var MAX_ROWS = 20;
   function generateUniqueId() {
     return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
@@ -860,6 +885,11 @@
       "openNoteRowIds",
       []
     );
+    const setRowsSafe = (newRows) => {
+      setRows(newRows);
+      const existingIds = new Set(newRows.map((r) => r.id));
+      setOpenNoteRowIds(openNoteRowIds.filter((id) => existingIds.has(id)));
+    };
     const openSettings = () => {
       return new Promise((resolve) => {
         figma.showUI(__html__, { width: 340, height: 420, title: "Widget Settings" });
@@ -886,7 +916,7 @@
                   date: "",
                   note: ""
                 }));
-                setRows(seededRows);
+                setRowsSafe(seededRows);
               }
               figma.closePlugin();
               resolve();
@@ -899,15 +929,14 @@
               const newRows = [...rows];
               const [moved] = newRows.splice(draggedIndex, 1);
               newRows.splice(targetIndex, 0, moved);
-              setRows(newRows);
+              setRowsSafe(newRows);
               figma.ui.postMessage({ type: "update-rows", rows: newRows });
               break;
             }
             case "remove-row": {
               const id = msg.id;
               const newRows = rows.filter((r) => r.id !== id);
-              setRows(newRows);
-              setOpenNoteRowIds(openNoteRowIds.filter((rowId) => rowId !== id));
+              setRowsSafe(newRows);
               if (activeDropdownRowId === id) setActiveDropdownRowId("");
               figma.ui.postMessage({ type: "update-rows", rows: newRows });
               break;
@@ -922,6 +951,7 @@
       });
     };
     const handleAddRole = () => {
+      if (rows.length >= MAX_ROWS) return;
       const newRow = {
         id: generateUniqueId(),
         role: "Role",
@@ -946,6 +976,7 @@
     const handleToggleDropdown = (rowId) => {
       setActiveDropdownRowId(activeDropdownRowId === rowId ? "" : rowId);
     };
+    const openNoteSet = new Set(openNoteRowIds);
     return /* @__PURE__ */ figma.widget.h(
       AutoLayout,
       {
@@ -984,7 +1015,7 @@
             key: row.id,
             row,
             mode,
-            isNoteOpen: openNoteRowIds.includes(row.id),
+            isNoteOpen: openNoteSet.has(row.id),
             isDropdownOpen: activeDropdownRowId === row.id,
             onToggleNote: () => handleToggleNote(row.id),
             onToggleDropdown: () => handleToggleDropdown(row.id),
@@ -992,7 +1023,15 @@
           }
         ))
       ),
-      /* @__PURE__ */ figma.widget.h(Footer, { mode, onAddRole: handleAddRole })
+      /* @__PURE__ */ figma.widget.h(
+        Footer,
+        {
+          mode,
+          onAddRole: handleAddRole,
+          rowCount: rows.length,
+          maxRows: MAX_ROWS
+        }
+      )
     );
   }
   figma_default.register(SignoffTrackerWidget);

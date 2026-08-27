@@ -6,15 +6,42 @@ import { PlusIcon } from './Icons';
 
 interface FooterProps {
   mode: WidgetMode;
+  rowCount: number;
+  maxRows: number;
   onAddRole: () => void;
 }
 
-export const Footer = ({ mode, onAddRole }: FooterProps) => {
+export const Footer = ({
+  mode,
+  rowCount,
+  maxRows,
+  onAddRole,
+}: FooterProps) => {
   const modeLabel = mode === 'binary' ? 'Binary' : 'Multi-state';
+  const isCapped = rowCount >= maxRows;
 
   return (
     <AutoLayout direction="vertical" width="fill-parent" fill={COLORS.white}>
       <AutoLayout width="fill-parent" height={1} fill={COLORS.hairline} />
+
+      {/* Row Cap Warning */}
+      {isCapped && (
+        <AutoLayout
+          width="fill-parent"
+          fill={COLORS.warningBg}
+          stroke={COLORS.warningBorder}
+          strokeWidth={1}
+          padding={{ top: 4, bottom: 4, left: 14, right: 14 }}
+        >
+          <Text
+            fontSize={10}
+            fill={COLORS.warningText}
+          >
+            {`Max ${maxRows} roles reached. Remove a role to add more.`}
+          </Text>
+        </AutoLayout>
+      )}
+
       <AutoLayout
         direction="horizontal"
         spacing="auto"
@@ -30,16 +57,21 @@ export const Footer = ({ mode, onAddRole }: FooterProps) => {
           spacing={4}
           padding={{ top: 4, bottom: 4, left: 6, right: 6 }}
           cornerRadius={4}
-          hoverStyle={{
-            fill: COLORS.figmaBlueLight,
-          }}
+          fill={isCapped ? COLORS.subtleBg : undefined}
+          hoverStyle={
+            isCapped
+              ? undefined
+              : {
+                  fill: COLORS.figmaBlueLight,
+                }
+          }
           onClick={onAddRole}
         >
-          <PlusIcon size={12} color={COLORS.figmaBlue} />
+          <PlusIcon size={12} color={isCapped ? COLORS.textMuted : COLORS.figmaBlue} />
           <Text
             fontSize={12}
             fontWeight={600}
-            fill={COLORS.figmaBlue}
+            fill={isCapped ? COLORS.textMuted : COLORS.figmaBlue}
           >
             Add role
           </Text>
