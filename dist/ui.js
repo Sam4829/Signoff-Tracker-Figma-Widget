@@ -50,7 +50,7 @@
     .btn-done {
       font-size: 11px;
       font-weight: 600;
-      color: #0D99FF;
+      color: #0077CC;
       background: #E8F4FE;
       border: none;
       border-radius: 4px;
@@ -124,7 +124,7 @@
     }
     .preset-card:hover { background: #F2F2F2; }
     .preset-name { font-size: 12px; font-weight: 600; color: #1E1E1E; }
-    .preset-roles { font-size: 11px; color: #8C8C8C; }
+    .preset-roles { font-size: 11px; color: #6B6B6B; }
 
     /* \u2500\u2500 Warning banner \u2500\u2500 */
     .warning-banner {
@@ -197,7 +197,7 @@
     /* \u2500\u2500 Empty roles state \u2500\u2500 */
     .roles-empty {
       font-size: 11px;
-      color: #B3B3B3;
+      color: #6B6B6B;
       text-align: center;
       padding: 8px 0;
     }

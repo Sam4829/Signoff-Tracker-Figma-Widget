@@ -67,11 +67,11 @@ export const Footer = ({
           }
           onClick={onAddRole}
         >
-          <PlusIcon size={12} color={isCapped ? COLORS.textMuted : COLORS.figmaBlue} />
+          <PlusIcon size={12} color={isCapped ? COLORS.textMuted : COLORS.figmaBlueText} />
           <Text
             fontSize={12}
             fontWeight={600}
-            fill={isCapped ? COLORS.textMuted : COLORS.figmaBlue}
+            fill={isCapped ? COLORS.textMuted : COLORS.figmaBlueText}
           >
             Add role
           </Text>

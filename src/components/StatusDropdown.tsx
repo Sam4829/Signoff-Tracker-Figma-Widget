@@ -68,7 +68,7 @@ export const StatusDropdown = ({
               <Text
                 fontSize={12}
                 fontWeight={isSelected ? 600 : 400}
-                fill={isSelected ? COLORS.figmaBlue : COLORS.textPrimary}
+                fill={isSelected ? COLORS.figmaBlueText : COLORS.textPrimary}
               >
                 {config.label}
               </Text>
@@ -77,7 +77,7 @@ export const StatusDropdown = ({
             {isSelected && (
               <Text
                 fontSize={11}
-                fill={COLORS.figmaBlue}
+                fill={COLORS.figmaBlueText}
                 fontWeight={600}
               >
                 ✓

@@ -45,6 +45,7 @@
     figmaBlue: "#0D99FF",
     figmaBlueHover: "#007BE5",
     figmaBlueLight: "#E8F4FE",
+    figmaBlueText: "#0077CC",
     // Neutrals
     white: "#FFFFFF",
     cardBg: "#FFFFFF",
@@ -55,7 +56,7 @@
     // Text
     textPrimary: "#1E1E1E",
     textSecondary: "#666666",
-    textTertiary: "#8C8C8C",
+    textTertiary: "#6B6B6B",
     textMuted: "#B3B3B3",
     // Row selection / highlight
     rowHover: "#FBFBFB",
@@ -77,7 +78,7 @@
     in_review: {
       label: "In review",
       bg: "#FFF8E1",
-      text: "#B78103",
+      text: "#8A6200",
       dotColor: "#F59E0B",
       borderColor: "#FFE082"
     },
@@ -98,7 +99,7 @@
     na: {
       label: "N/A",
       bg: "#EEEEEE",
-      text: "#757575",
+      text: "#5A5A5A",
       dotColor: "#9E9E9E",
       borderColor: "#E0E0E0"
     }
@@ -222,7 +223,7 @@
       }
     );
   };
-  var CloseIcon = ({ size = 14, color = "#8C8C8C", onClick }) => {
+  var CloseIcon = ({ size = 14, color = "#6B6B6B", onClick }) => {
     return /* @__PURE__ */ figma.widget.h(
       SVG,
       {
@@ -395,7 +396,7 @@
           Text,
           {
             fontSize: 11,
-            fill: COLORS.figmaBlue,
+            fill: COLORS.figmaBlueText,
             fontWeight: 500
           },
           "Note:"
@@ -506,7 +507,7 @@
               {
                 fontSize: 12,
                 fontWeight: isSelected ? 600 : 400,
-                fill: isSelected ? COLORS.figmaBlue : COLORS.textPrimary
+                fill: isSelected ? COLORS.figmaBlueText : COLORS.textPrimary
               },
               config.label
             )
@@ -515,7 +516,7 @@
             Text,
             {
               fontSize: 11,
-              fill: COLORS.figmaBlue,
+              fill: COLORS.figmaBlueText,
               fontWeight: 600
             },
             "\u2713"
@@ -615,7 +616,7 @@
                 fontSize: 11,
                 fontWeight: 400,
                 italic: !row.assignee,
-                fill: row.assignee ? COLORS.textSecondary : COLORS.textMuted,
+                fill: COLORS.textSecondary,
                 width: "fill-parent"
               }
             )
@@ -659,7 +660,7 @@
                 onTextEditEnd: (e) => onUpdateRow({ date: e.characters.trim() }),
                 fontSize: 11,
                 fontWeight: 400,
-                fill: row.date ? COLORS.textSecondary : COLORS.textMuted,
+                fill: COLORS.textSecondary,
                 width: 76
               }
             )
@@ -835,13 +836,13 @@
           },
           onClick: onAddRole
         },
-        /* @__PURE__ */ figma.widget.h(PlusIcon, { size: 12, color: isCapped ? COLORS.textMuted : COLORS.figmaBlue }),
+        /* @__PURE__ */ figma.widget.h(PlusIcon, { size: 12, color: isCapped ? COLORS.textMuted : COLORS.figmaBlueText }),
         /* @__PURE__ */ figma.widget.h(
           Text,
           {
             fontSize: 12,
             fontWeight: 600,
-            fill: isCapped ? COLORS.textMuted : COLORS.figmaBlue
+            fill: isCapped ? COLORS.textMuted : COLORS.figmaBlueText
           },
           "Add role"
         )

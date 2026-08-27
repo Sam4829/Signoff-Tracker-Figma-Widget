@@ -102,7 +102,7 @@ export const PlusIcon = ({ size = 14, color = '#0D99FF', onClick }: IconProps) =
   );
 };
 
-export const CloseIcon = ({ size = 14, color = '#8C8C8C', onClick }: IconProps) => {
+export const CloseIcon = ({ size = 14, color = '#6B6B6B', onClick }: IconProps) => {
   return (
     <SVG
       onClick={onClick}

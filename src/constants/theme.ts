@@ -5,6 +5,7 @@ export const COLORS = {
   figmaBlue: '#0D99FF',
   figmaBlueHover: '#007BE5',
   figmaBlueLight: '#E8F4FE',
+  figmaBlueText: '#0077CC',
 
   // Neutrals
   white: '#FFFFFF',
@@ -17,7 +18,7 @@ export const COLORS = {
   // Text
   textPrimary: '#1E1E1E',
   textSecondary: '#666666',
-  textTertiary: '#8C8C8C',
+  textTertiary: '#6B6B6B',
   textMuted: '#B3B3B3',
 
   // Row selection / highlight
@@ -41,7 +42,7 @@ export const STATUS_CONFIG: Record<MultiStateStatus, StatusStyle> = {
   in_review: {
     label: 'In review',
     bg: '#FFF8E1',
-    text: '#B78103',
+    text: '#8A6200',
     dotColor: '#F59E0B',
     borderColor: '#FFE082',
   },
@@ -62,7 +63,7 @@ export const STATUS_CONFIG: Record<MultiStateStatus, StatusStyle> = {
   na: {
     label: 'N/A',
     bg: '#EEEEEE',
-    text: '#757575',
+    text: '#5A5A5A',
     dotColor: '#9E9E9E',
     borderColor: '#E0E0E0',
   },

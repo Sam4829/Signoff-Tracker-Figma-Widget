@@ -122,7 +122,7 @@ export const RowItem = ({
               fontSize={11}
               fontWeight={400}
               italic={!row.assignee}
-              fill={row.assignee ? COLORS.textSecondary : COLORS.textMuted}
+              fill={COLORS.textSecondary}
               width="fill-parent"
             />
           </AutoLayout>
@@ -162,7 +162,7 @@ export const RowItem = ({
               onTextEditEnd={(e) => onUpdateRow({ date: e.characters.trim() })}
               fontSize={11}
               fontWeight={400}
-              fill={row.date ? COLORS.textSecondary : COLORS.textMuted}
+              fill={COLORS.textSecondary}
               width={76}
             />
           </AutoLayout>

@@ -31,7 +31,7 @@ export const InlineNote = ({
       >
         <Text
           fontSize={11}
-          fill={COLORS.figmaBlue}
+          fill={COLORS.figmaBlueText}
           fontWeight={500}
         >
           Note:
