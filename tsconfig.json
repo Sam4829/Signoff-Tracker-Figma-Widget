@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es6", "es2016"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "jsxFactory": "figma.widget.h",
+    "jsxFragmentFactory": "figma.widget.Fragment",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@figma"
+    ],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/ui.ts"
+  ]
+}

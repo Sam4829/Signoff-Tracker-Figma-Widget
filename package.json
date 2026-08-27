@@ -1,0 +1,26 @@
+{
+  "name": "figma-signoff-tracker-widget",
+  "version": "1.0.0",
+  "description": "A standalone Figma widget for configurable, role-based sign-off tracking on flows and tasks.",
+  "main": "dist/code.js",
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node build.js --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "figma",
+    "figjam",
+    "widget",
+    "sign-off",
+    "tracker",
+    "approval"
+  ],
+  "author": "Sagnik Saha",
+  "license": "MIT",
+  "devDependencies": {
+    "@figma/widget-typings": "^1.1.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.3"
+  }
+}
